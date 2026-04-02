@@ -8,7 +8,14 @@ import db
 class Category(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     c_name: str = Field(index=True)
-    products: list["Product"] = Relationship(back_populates="category")
+
+    products: list["Product"] = Relationship(
+        back_populates="category", cascade_delete=True
+    )
+
+
+class CategoryCreate(SQLModel):
+    c_name: str = Field(index=True)
 
 
 class CategoryUpdate(BaseModel):
@@ -20,7 +27,16 @@ class Product(SQLModel, table=True):
     p_name: str = Field(index=True)
     price: float
     category_id: int = Field(foreign_key="category.id", index=True)
+    description: Optional[str] = Field(default=None)
+    create_date: Optional[str] = Field(default=None)
+
     category: Category = Relationship(back_populates="products")
+
+
+class ProductCreate(SQLModel):
+    p_name: str = Field(index=True)
+    price: float
+    category_id: int = Field(foreign_key="category.id", index=True)
     description: Optional[str] = Field(default=None)
     create_date: Optional[str] = Field(default=None)
 

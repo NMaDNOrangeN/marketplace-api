@@ -3,7 +3,7 @@ import models
 models.db.create_db_and_tables()
 
 with models.db.Session(models.db.engine) as s:
-    cat1 = models.Category(c_name="Toy")
+    cat1 = models.Category(c_name="Toys")
     cat2 = models.Category(c_name="Food")
     s.add(cat1)
     s.add(cat2)
